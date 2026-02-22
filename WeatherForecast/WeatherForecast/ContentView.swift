@@ -9,10 +9,37 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        HStack (spacing: 0) {
-            DayForecast(day: "Mon", isRainy: false, high: 70, low: 50)
+        VStack (spacing: 0) {
+            Spacer().frame(height: 20)
             
-            DayForecast(day: "Tue", isRainy: true, high: 60, low: 40)
+            ScrollView(.horizontal, showsIndicators: true) {
+                HStack (spacing: 0) {
+                    DayForecast(day: "Mon", isRainy: false, high: 70, low: 50)
+                    
+                    DayForecast(day: "Tue", isRainy: true, high: 60, low: 40)
+                    
+                    DayForecast(day: "Wed", isRainy: true, high: 65, low: 40)
+                    
+                    DayForecast(day: "Thu", isRainy: false, high: 60, low: 40)
+                    
+                    DayForecast(day: "Fri", isRainy: false, high: 90, low: 60)
+                    
+                    DayForecast(day: "Sat", isRainy: false, high: 60, low: 40)
+                }
+            }
+            .padding(.trailing, 20)
+//            .padding(.leading, 20)
+            
+            HStack (spacing: 0) {
+                DayForecast(day: "Mon", isRainy: false, high: 70, low: 50)
+                
+                DayForecast(day: "Tue", isRainy: true, high: 60, low: 40)
+                
+                DayForecast(day: "Wed", isRainy: true, high: 60, low: 40)
+                
+                Spacer()
+            }
+//            .padding(.leading, 20)
             
             Spacer()
         }
@@ -37,14 +64,15 @@ struct DayForecast: View {
     var iconColor: Color {
         if isRainy {
             Color.blue      // same as "return Color.blue"
+        } else if high > 80 {
+            Color.orange    // same as "return Color.orange"
         } else {
             Color.yellow    // same as "return Color.yellow"
         }
     }
     
     var body: some View {
-        VStack {
-            Spacer().frame(height: 50)
+        VStack (alignment: .leading) {
             Text(day)
                 .font(Font.headline)
             Image(systemName: iconName)
@@ -57,7 +85,6 @@ struct DayForecast: View {
             Text("Low: \(low)º")
                 .fontWeight(Font.Weight.medium)
                 .foregroundStyle(Color.secondary)
-            Spacer()
         }
         .padding()
     }
